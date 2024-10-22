@@ -10,4 +10,7 @@ Vagrant.configure("2") do |config|
     "tierra.sistema.test" => "192.168.57.103",
     "marte.sistema.test" => "192.168.57.104",
   }
+  #REINICIO DEL SISTEMA
+  systemctl restart Bind9
+  SHELL
 end
