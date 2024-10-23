@@ -13,9 +13,9 @@ Vagrant.configure("2") do |config|
   # Crear una provisión usando un script de shell
   config.vm.provision "shell", inline: <<-SHELL
 
-    # Instalar BIND si no está instalado
+    # Instalar BIND y Postfix si no están instalados
     sudo apt-get update
-    sudo apt-get install -y bind9
+    sudo apt-get install -y bind9 postfix
 
     # Establecer la opción dnssec-validation a yes
     echo 'dnssec-validation yes;' | sudo tee -a vagrant/etc/bind/named.conf.options
@@ -59,6 +59,7 @@ Vagrant.configure("2") do |config|
     echo ns1     IN      CNAME   tierra.sistema.test. | sudo tee -a vagrant/etc/bind/db.sistema.test
     echo ns2     IN      CNAME   venus.sistema.test. | sudo tee -a vagrant/etc/bind/db.sistema.test
     echo mail    IN      CNAME   marte.sistema.test. | sudo tee -a vagrant/etc/bind/db.sistema.test
+    echo @       IN      MX      marte.sistema.test. | sudo tee -a vagrant/etc/bind/db.sistema.test
 
     # Crear el archivo de zona inversa
     echo $TTL    604800 | sudo tee -a vagrant/etc/bind/db.192.168.57.103
@@ -75,6 +76,9 @@ Vagrant.configure("2") do |config|
     echo ns1     IN      CNAME   tierra.sistema.test. | sudo tee -a vagrant/etc/bind/db.192.168.57.103
     echo ns2     IN      CNAME   venus.sistema.test. | sudo tee -a vagrant/etc/bind/db.192.168.57.103
     echo mail    IN      CNAME   marte.sistema.test. | sudo tee -a vagrant/etc/bind/db.192.168.57.103
+    echo @       IN      MX      marte.sistema.test. | sudo tee -a vagrant/etc/bind/db.192.168.57.103
+
+
 
     # Crear el archivo de zonas en named.conf.local para tierra.sistem.test
     echo zone "sistema.test" { | sudo tee -a vagrant/etc/bind/named.conf.local
@@ -101,6 +105,12 @@ Vagrant.configure("2") do |config|
     echo   file "/var/cache/bind/db.192.168.57.103"; | sudo tee -a vagrant/etc/bind/named.conf.local
     echo   allow-transfer { 192.168.57.102; }; | sudo tee -a vagrant/etc/bind/named.conf.local
     echo }; | sudo tee -a vagrant/etc/bind/named.conf.local
+
+    # Configuración de Postfix
+    sudo postconf -e "myhostname = marte.sistema.test"
+    sudo postconf -e "mydomain = sistema.test"
+    sudo postconf -e "mydestination = \$myhostname, localhost.\$mydomain, localhost, \$mydomain"
+    sudo postconf -e "inet_interfaces = all"
 
 
 
