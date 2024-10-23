@@ -14,8 +14,13 @@ Vagrant.configure("2") do |config|
     # Instalar BIND si no está instalado
     sudo apt-get update
     sudo apt-get install -y bind9
+
+    # Establecer la opción dnssec-validation a yes
+    echo 'dnssec-validation yes;' | sudo tee -a /etc/bind/named.conf.options
+    sudo systemctl restart bind9
+  SHELL
     
   #REINICIO DEL SISTEMA
-  systemctl restart Bind9
+  sudo systemctl restart Bind9
   SHELL
 end
