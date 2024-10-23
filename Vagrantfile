@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
     echo                       604800        ; Refresh | sudo tee -a /etc/bind/db.sistema.test
     echo                       86400         ; Retry | sudo tee -a /etc/bind/db.sistema.test
     echo                       2419200       ; Expire | sudo tee -a /etc/bind/db.sistema.test
-    echo                       604800 )      ; Negative Cache TTL | sudo tee -a /etc/bind/db.sistema.test
+    echo                       7200 )      ; Negative Cache TTL | sudo tee -a /etc/bind/db.sistema.test
     echo '' | sudo tee -a /etc/bind/db.sistema.test
     echo ; Registros de nombres | sudo tee -a /etc/bind/db.sistema.test
     echo @       IN      NS      tierra.sistema.test. | sudo tee -a /etc/bind/db.sistema.test
@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
     echo                       604800        ; Refresh | sudo tee -a /etc/bind/db.192.168.57.103
     echo                       86400         ; Retry | sudo tee -a /etc/bind/db.192.168.57.103
     echo                       2419200       ; Expire | sudo tee -a /etc/bind/db.192.168.57.103
-    echo                       604800 )      ; Negative Cache TTL | sudo tee -a /etc/bind/db.192.168.57.103
+    echo                       7200 )      ; Negative Cache TTL | sudo tee -a /etc/bind/db.192.168.57.103
     echo '' | sudo tee -a /etc/bind/db.192.168.57
     echo ; Registros de nombres | sudo tee -a /etc/bind/db.192.168.57
     echo @       IN      NS      tierra.sistema.test. | sudo tee -a /etc/bind/db.192.168.57.103
