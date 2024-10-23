@@ -58,6 +58,7 @@ Vagrant.configure("2") do |config|
     echo @       IN      A       192.168.57.103 | sudo tee -a vagrant/etc/bind/db.sistema.test
     echo ns1     IN      CNAME   tierra.sistema.test. | sudo tee -a vagrant/etc/bind/db.sistema.test
     echo ns2     IN      CNAME   venus.sistema.test. | sudo tee -a vagrant/etc/bind/db.sistema.test
+    echo mail    IN      CNAME   marte.sistema.test. | sudo tee -a vagrant/etc/bind/db.sistema.test
 
     # Crear el archivo de zona inversa
     echo $TTL    604800 | sudo tee -a vagrant/etc/bind/db.192.168.57.103
@@ -73,6 +74,7 @@ Vagrant.configure("2") do |config|
     echo 10      IN      PTR     tierra.sistema.test. | sudo tee -a vagrant/etc/bind/db.192.168.57.103
     echo ns1     IN      CNAME   tierra.sistema.test. | sudo tee -a vagrant/etc/bind/db.192.168.57.103
     echo ns2     IN      CNAME   venus.sistema.test. | sudo tee -a vagrant/etc/bind/db.192.168.57.103
+    echo mail    IN      CNAME   marte.sistema.test. | sudo tee -a vagrant/etc/bind/db.192.168.57.103
 
     # Crear el archivo de zonas en named.conf.local para tierra.sistem.test
     echo zone "sistema.test" { | sudo tee -a vagrant/etc/bind/named.conf.local
