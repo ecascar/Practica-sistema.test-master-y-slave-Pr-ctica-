@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     # Establecer la opción dnssec-validation a yes
     echo 'dnssec-validation yes;' | sudo tee -a /etc/bind/named.conf.options
     sudo systemctl restart bind9
-  SHELL
+    
     
   #REINICIO DEL SISTEMA
   sudo systemctl restart Bind9
