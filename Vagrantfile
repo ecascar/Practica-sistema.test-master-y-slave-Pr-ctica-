@@ -18,7 +18,15 @@ Vagrant.configure("2") do |config|
     # Establecer la opción dnssec-validation a yes
     echo 'dnssec-validation yes;' | sudo tee -a /etc/bind/named.conf.options
     sudo systemctl restart bind9
-    
+
+    # Configurar las ACL y opciones de BIND
+    echo 'acl "trusted" {' | sudo tee -a /etc/bind/named.conf.options
+    echo '    127.0.0.0/8;' | sudo tee -a /etc/bind/named.conf.options
+    echo '    192.168.57.0/24;' | sudo tee -a /etc/bind/named.conf.options
+    echo '};' | sudo tee -a /etc/bind/named.conf.options
+    echo 'options {' | sudo tee -a /etc/bind/named.conf.options
+    echo '    allow-recursion { "trusted"; };' | sudo tee -a /etc/bind/named.conf.options
+    echo '};' | sudo tee -a /etc/bind/named.conf.options
     
   #REINICIO DEL SISTEMA
   sudo systemctl restart Bind9
