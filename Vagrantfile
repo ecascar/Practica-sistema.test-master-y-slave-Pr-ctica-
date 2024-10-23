@@ -9,7 +9,12 @@ Vagrant.configure("2") do |config|
     "tierra.sistema.test" => "192.168.57.103",
   }
 
-  
+  # Crear una provisión usando un script de shell
+  config.vm.provision "shell", inline: <<-SHELL
+    # Instalar BIND si no está instalado
+    sudo apt-get update
+    sudo apt-get install -y bind9
+    
   #REINICIO DEL SISTEMA
   systemctl restart Bind9
   SHELL
