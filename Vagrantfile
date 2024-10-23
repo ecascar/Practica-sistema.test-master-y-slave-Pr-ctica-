@@ -7,6 +7,7 @@ Vagrant.configure("2") do |config|
   machines = {
     "venus.sistema.test" => "192.168.57.102",
     "tierra.sistema.test" => "192.168.57.103",
+    "marte.sistema.test" => "192.168.57.104",
   }
 
   # Crear una provisión usando un script de shell
