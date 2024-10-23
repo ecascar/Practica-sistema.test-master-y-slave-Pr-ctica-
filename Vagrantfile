@@ -18,7 +18,21 @@ Vagrant.configure("2") do |config|
 
     # Establecer la opción dnssec-validation a yes
     echo 'dnssec-validation yes;' | sudo tee -a /etc/bind/named.conf.options
-    sudo systemctl restart bind9
+
+    # Configuración de named.conf.options para el reenvío de consultas
+    sudo bash -c 'cat << EOF > /etc/bind/named.conf.options
+    options {
+        directory "/var/cache/bind";
+
+        // Para habilitar el reenvío
+        forwarders {
+            208.67.222.222;  // OpenDNS
+        };
+
+        // Establece el modo de reenvío
+        forward only;  // Solo reenviar a los servidores especificados
+    };
+    EOF'
 
     # Configurar las ACL y opciones de BIND
     echo 'acl "trusted" {' | sudo tee -a /etc/bind/named.conf.options
